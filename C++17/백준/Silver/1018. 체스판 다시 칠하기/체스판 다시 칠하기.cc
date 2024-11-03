@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
     //시작점은 i+8햇을때 M보다 작아야한다.
     //즉, M-8  > i : 시작점!
     for (int i = 0; i <= M - 8; i++) {
-        for (int j = 0; j <= N - 8; j++) {
+        for (int j = 0; j <= N - 8; j++) {		//<=인 이유 : 만약 m이 8이면 0이되어야 하기 때문에 I 가
             min_new = min(check_bw(i, j), check_wb(i, j));
             if (min_new < min_cnt) min_cnt = min_new;
         }

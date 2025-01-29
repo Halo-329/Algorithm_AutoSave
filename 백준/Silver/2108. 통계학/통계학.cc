@@ -17,7 +17,8 @@ void backjoon() {
     }
 
     // 1 : 산술평균 (반올림)
-    int mean = round((double)accumulate(nums.begin(), nums.end(), 0) / N);
+    
+    int mean = round(accumulate(nums.begin(), nums.end(), 0.0) / N);
     cout << mean << "\n";
 
     // 2 : 중앙값

@@ -1,48 +1,51 @@
-import sys
-input = sys.stdin.readline
+import sys, os
 
-board = [list(map(int, input().split())) for _ in range(9)]
-nxt = []
-for x in range(9):
-    for y in range(9):
-        if board[x][y] == 0:
-            nxt.append((x, y))
+SIZE= 9
+input=sys.stdin.readline
+sudoku=[list(map(int,input().split())) for _ in range(SIZE)]
 
-def check_h(x, a):
-    # 가로줄 검증
-    for y in range(9):
-        if board[x][y] == a:
+# mat=sys.stdin=open("Back_Tracking/ETC/input.txt","r")
+# sudoku=[list(map(int,mat.readline().split())) for _ in range(SIZE)]
+
+
+blank=[[i,j]for i in range(SIZE) for j in range(SIZE) if sudoku[i][j]==0]
+
+
+
+def row_check(row, value):
+    for col in range(SIZE):
+        if sudoku[row][col] == value:
             return False
     return True
 
-def check_v(y, a):
-    # 세로줄 검증
-    for x in range(9):
-        if board[x][y] == a:
+def col_check(col, value):
+    for row in range(SIZE):
+        if sudoku[row][col] == value:
             return False
     return True
 
-def check_b(x, y, a):
-    # 네모 박스 검증
-    x = x // 3 * 3
-    y = y // 3 * 3
-    for dx in range(x, x + 3):
-        for dy in range(y, y + 3):
-            if board[dx][dy] == a:
+def box_check(y,x,value):
+    for i in range(3):
+        for j in range(3):
+            if sudoku[y//3*3+i][x//3*3+j] == value:
                 return False
     return True
 
-def sudoku(n):
-    if n == len(nxt):
-        for row in range(9):
-            print(*board[row])
-        sys.exit(0)
-    x = nxt[n][0]
-    y = nxt[n][1]
-    for a in range(1, 10):
-        if  check_b(x, y, a) and check_h(x, a) and check_v(y, a):
-            board[x][y] = a
-            sudoku(n + 1)
-            board[x][y] = 0
+def dfs(n):
+    if (n==len(blank)):
+        for row in sudoku:
+            for value in row:
+                print(value,end=" ")
+            print()
+        sys.exit()
+        
+    for value in range(1,10):   # value : 1~9
+        y=blank[n][0]
+        x=blank[n][1]
+        if  box_check(y,x,value) and row_check(y,value) and col_check(x, value):
+            sudoku[y][x]=value
+            dfs(n+1)
+            sudoku[y][x]=0
 
-sudoku(0)
+
+dfs(0)

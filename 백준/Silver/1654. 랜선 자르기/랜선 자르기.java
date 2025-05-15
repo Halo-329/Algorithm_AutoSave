@@ -26,24 +26,23 @@ public class Main {
             }
         }
 
-        right++;
-        long left = 0;
+        long left = 1;
         long mid = 0;
         long sum = 0;
 
-        while (left < right) {
+        while (left <= right) {
             mid = (left + right) / 2;
             sum = 0;
             for (int i = 0; i < K; i++) {
                 sum += (arr[i] / mid);
             }
             if (sum < N) {
-                right = mid;
+                right = mid - 1;
             } else {
                 left = mid + 1;
             }
         }
-        System.out.println(left - 1);
+        System.out.println(right);
         bw.flush();
         bw.close();
     }

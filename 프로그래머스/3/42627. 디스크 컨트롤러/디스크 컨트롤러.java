@@ -41,7 +41,7 @@ class Solution {
             }
         }
             
-        return answer/jobs.length;
+        return (int)Math.floor(answer/jobs.length);
     }
     
 }

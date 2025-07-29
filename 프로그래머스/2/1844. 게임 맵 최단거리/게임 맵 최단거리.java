@@ -8,10 +8,7 @@ class Solution {
     public int solution(int[][] maps) {
         Queue<int[]> que = new LinkedList<>();
         
-        int[][] visited = new int[maps.length][];
-        for(int i=0; i<maps.length; i++){
-            visited[i] = new int[maps[0].length];
-        }        
+        int[][] visited = new int[maps.length][maps[0].length];
         
         que.add(new int[]{0,0});
         visited[0][0]=1;
@@ -24,6 +21,9 @@ class Solution {
                 
                 if(nx>=0 && ny>=0 && nx<maps.length && ny<maps[0].length){
                     if(maps[nx][ny]==1 && visited[nx][ny] ==0){
+                        if(nx==maps.length-1 && ny==maps[0].length-1){
+                            return visited[pos[0]][pos[1]]+1;
+                        }
                         visited[nx][ny]=visited[pos[0]][pos[1]]+1;
                         que.add(new int[]{nx,ny});
                     }
